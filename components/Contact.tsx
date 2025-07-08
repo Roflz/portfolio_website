@@ -61,7 +61,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-dark-800">
+    <section id="contact" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ const Contact = () => {
                 >
                   <div className="flex items-center gap-4">
                     <div className="p-3 bg-primary-100 dark:bg-primary-900/20 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-900/40 transition-colors duration-200">
-                      <info.icon size={24} className="text-primary-600 dark:text-primary-400" />
+                      <info.icon size={24} className="text-primary" />
                     </div>
                     <div>
                       <h4 className="font-semibold text-dark-900 dark:text-white">

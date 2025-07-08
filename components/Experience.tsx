@@ -71,7 +71,7 @@ const Experience = () => {
   ]
 
   return (
-    <section id="experience" className="py-20 bg-white dark:bg-dark-900">
+    <section id="experience" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -97,7 +97,7 @@ const Experience = () => {
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-3 mb-8">
-              <Briefcase size={24} className="text-primary-600 dark:text-primary-400" />
+              <Briefcase size={24} className="text-primary" />
               <h3 className="text-2xl font-semibold text-dark-900 dark:text-white">
                 Work Experience
               </h3>
@@ -183,7 +183,7 @@ const Experience = () => {
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-3 mb-8">
-              <GraduationCap size={24} className="text-primary-600 dark:text-primary-400" />
+              <GraduationCap size={24} className="text-primary" />
               <h3 className="text-2xl font-semibold text-dark-900 dark:text-white">
                 Education
               </h3>
@@ -235,7 +235,7 @@ const Experience = () => {
 
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-dark-900 dark:text-white">GPA:</span>
-                        <span className="text-sm text-primary-600 dark:text-primary-400 font-semibold">
+                        <span className="text-sm text-primary font-semibold">
                           {edu.gpa}
                         </span>
                       </div>
@@ -265,7 +265,7 @@ const Experience = () => {
                 ].map((cert, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <span className="text-gray-700 dark:text-gray-300">{cert}</span>
-                    <ExternalLink size={16} className="text-primary-600 dark:text-primary-400" />
+                    <ExternalLink size={16} className="text-primary" />
                   </div>
                 ))}
               </div>

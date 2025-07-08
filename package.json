@@ -23,7 +23,8 @@
     "framer-motion": "^10.16.0",
     "lucide-react": "^0.292.0",
     "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^2.0.0",
+    "theme-lib": "file:../theme-lib"
   },
   "devDependencies": {
     "eslint": "^8.0.0",

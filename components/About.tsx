@@ -14,7 +14,7 @@ const About = () => {
   ]
 
   return (
-    <section id="about" className="py-20 bg-gray-50 dark:bg-dark-800">
+    <section id="about" className="py-20 bg-background-alt">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -42,12 +42,12 @@ const About = () => {
           >
             {/* Profile Image */}
             <div className="relative">
-              <div className="w-80 h-80 mx-auto rounded-full bg-gradient-to-br from-primary-400 to-purple-600 p-1">
+              <div className="w-80 h-80 mx-auto rounded-full bg-gradient-primary p-1">
                 <div className="w-full h-full rounded-full bg-gray-200 dark:bg-dark-700 flex items-center justify-center">
                   <User size={120} className="text-gray-400 dark:text-gray-500" />
                 </div>
               </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary-600 rounded-full flex items-center justify-center">
+              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-lg">5+</span>
               </div>
             </div>
@@ -67,7 +67,7 @@ const About = () => {
                     viewport={{ once: true }}
                     className="flex items-center gap-3"
                   >
-                    <info.icon size={20} className="text-primary-600 dark:text-primary-400" />
+                    <info.icon size={20} className="text-primary" />
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">{info.label}</p>
                       <p className="font-medium text-dark-900 dark:text-white">{info.value}</p>

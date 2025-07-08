@@ -88,7 +88,7 @@ const Projects = () => {
     : projects.filter(project => project.category === activeFilter)
 
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-dark-800">
+    <section id="projects" className="py-20 bg-background-alt">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -119,7 +119,7 @@ const Projects = () => {
               onClick={() => setActiveFilter(filter.id)}
               className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
                 activeFilter === filter.id
-                  ? 'bg-primary-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white dark:bg-dark-700 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-dark-600'
               }`}
             >
@@ -174,7 +174,7 @@ const Projects = () => {
 
               {/* Project Content */}
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-dark-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+                <h3 className="text-xl font-semibold text-dark-900 dark:text-white group-hover:text-primary transition-colors duration-200">
                   {project.title}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">

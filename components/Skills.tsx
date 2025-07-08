@@ -77,7 +77,7 @@ const Skills = () => {
   ]
 
   return (
-    <section id="skills" className="py-20 bg-white dark:bg-dark-900">
+    <section id="skills" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -105,7 +105,7 @@ const Skills = () => {
               className="card"
             >
               <div className="flex items-center gap-3 mb-6">
-                <category.icon size={24} className="text-primary-600 dark:text-primary-400" />
+                <category.icon size={24} className="text-primary" />
                 <h3 className="text-xl font-semibold text-dark-900 dark:text-white">
                   {category.title}
                 </h3>
@@ -125,7 +125,7 @@ const Skills = () => {
                       <span className="text-sm font-medium text-dark-900 dark:text-white">
                         {skill.name}
                       </span>
-                      <span className="text-sm text-primary-600 dark:text-primary-400">
+                      <span className="text-sm text-primary">
                         {skill.level}%
                       </span>
                     </div>
@@ -135,7 +135,7 @@ const Skills = () => {
                         whileInView={{ width: `${skill.level}%` }}
                         transition={{ duration: 1, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) + 0.3 }}
                         viewport={{ once: true }}
-                        className="bg-gradient-to-r from-primary-500 to-purple-500 h-2 rounded-full"
+                        className="bg-gradient-primary h-2 rounded-full"
                       />
                     </div>
                   </motion.div>

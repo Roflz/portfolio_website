@@ -1,9 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    '../theme-lib/src/**/*.{js,ts,jsx,tsx}',
+  ],
+  safelist: [
+    'bg-gradient-to-r',
+    'from-[#2563eb]', 'to-[#a21caf]',
+    'from-[#facc15]', 'to-[#f97316]',
+    'from-[#ef4444]', 'to-[#ec4899]',
+    'from-[#14b8a6]', 'to-[#06b6d4]',
+    'from-[#22c55e]', 'to-[#059669]',
+    'from-[#f43f5e]', 'to-[#ea580c]',
   ],
   theme: {
     extend: {

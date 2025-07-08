@@ -14,7 +14,6 @@ const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative pt-16">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-purple-50 dark:from-dark-800 dark:to-dark-900 -z-10" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%239C92AC%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -29,7 +28,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-primary-600 dark:text-primary-400 font-medium"
+            className="text-lg text-primary font-medium"
           >
             Hello, I'm
           </motion.p>
@@ -99,15 +98,15 @@ const Hero = () => {
             className="flex justify-center items-center gap-8 pt-8"
           >
             <div className="text-center">
-              <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">50+</div>
+              <div className="text-2xl font-bold text-primary">50+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Projects Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">5+</div>
+              <div className="text-2xl font-bold text-primary">5+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">100%</div>
+              <div className="text-2xl font-bold text-primary">100%</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Client Satisfaction</div>
             </div>
           </motion.div>
