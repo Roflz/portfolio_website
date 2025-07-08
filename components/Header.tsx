@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { ColorPaletteSwitcher } from 'theme-lib'
+import { headerSection } from '../site.config'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -24,14 +25,7 @@ const Header = () => {
     document.documentElement.classList.toggle('dark')
   }
 
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
-  ]
+  const navItems = headerSection.navItems
 
   return (
     <motion.header
@@ -47,7 +41,7 @@ const Header = () => {
             className="text-2xl font-bold gradient-text absolute left-4 inset-y-0 flex items-center"
             style={{ minWidth: 0 }}
           >
-            YourName
+            {headerSection.logo}
           </motion.div>
           {/* Nav (center) */}
           <nav className="mx-auto flex space-x-8">
@@ -78,7 +72,7 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             className="text-2xl font-bold gradient-text"
           >
-            YourName
+            {headerSection.logo}
           </motion.div>
           <div className="flex items-center space-x-4">
             <ColorPaletteSwitcher />

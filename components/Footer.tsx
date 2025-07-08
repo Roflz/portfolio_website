@@ -2,13 +2,14 @@
 
 import { motion } from 'framer-motion'
 import { Heart, ArrowUp } from 'lucide-react'
+import { footerSection } from '../site.config'
 
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const currentYear = new Date().getFullYear()
+  const currentYear = footerSection.copyright.year
 
   return (
     <footer className="bg-background text-gray-900 dark:text-white py-12">
@@ -23,19 +24,13 @@ const Footer = () => {
             className="md:col-span-2"
           >
             <h3 className="text-2xl font-bold gradient-text mb-4">
-              Your Name
+              {footerSection.brand.name}
             </h3>
             <p className="text-gray-400 leading-relaxed mb-6">
-              A passionate software developer dedicated to creating innovative digital solutions 
-              that make a difference. Let's build something amazing together.
+              {footerSection.brand.description}
             </p>
             <div className="flex space-x-4">
-              {[
-                { name: 'GitHub', url: 'https://github.com/yourusername' },
-                { name: 'LinkedIn', url: 'https://linkedin.com/in/yourusername' },
-                { name: 'Twitter', url: 'https://twitter.com/yourusername' },
-                { name: 'Dribbble', url: 'https://dribbble.com/yourusername' }
-              ].map((social) => (
+              {footerSection.brand.socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.url}
@@ -58,14 +53,7 @@ const Footer = () => {
           >
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {[
-                { name: 'Home', href: '#home' },
-                { name: 'About', href: '#about' },
-                { name: 'Skills', href: '#skills' },
-                { name: 'Projects', href: '#projects' },
-                { name: 'Experience', href: '#experience' },
-                { name: 'Contact', href: '#contact' }
-              ].map((link) => (
+              {footerSection.quickLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
@@ -87,9 +75,9 @@ const Footer = () => {
           >
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>your.email@example.com</li>
-              <li>+1 (555) 123-4567</li>
-              <li>San Francisco, CA</li>
+              {footerSection.contactInfo.map((info, i) => (
+                <li key={i}>{info}</li>
+              ))}
             </ul>
           </motion.div>
         </div>
@@ -105,14 +93,14 @@ const Footer = () => {
           <div className="flex items-center gap-2 text-gray-400 mb-4 md:mb-0">
             <span>© {currentYear} Your Name. Made with</span>
             <Heart size={16} className="text-red-500 fill-current" />
-            <span>and lots of coffee.</span>
+            <span>{footerSection.copyright.love}</span>
           </div>
           
           <button
             onClick={scrollToTop}
             className="flex items-center gap-2 text-gray-400 hover:text-primary-400 transition-colors duration-200"
           >
-            <span>Back to top</span>
+            <span>{footerSection.backToTop}</span>
             <ArrowUp size={16} />
           </button>
         </motion.div>

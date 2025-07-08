@@ -2,73 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { Briefcase, GraduationCap, Calendar, MapPin, ExternalLink } from 'lucide-react'
+import { experienceSection } from '../site.config'
 
 const Experience = () => {
-  const workExperience = [
-    {
-      id: 1,
-      title: 'Senior Full-Stack Developer',
-      company: 'Tech Company Inc.',
-      location: 'San Francisco, CA',
-      period: '2022 - Present',
-      description: 'Leading development of enterprise web applications using React, Node.js, and cloud technologies. Mentoring junior developers and implementing best practices.',
-      technologies: ['React', 'Node.js', 'TypeScript', 'AWS', 'PostgreSQL'],
-      achievements: [
-        'Reduced application load time by 40% through optimization',
-        'Led a team of 5 developers on a major project',
-        'Implemented CI/CD pipeline reducing deployment time by 60%'
-      ]
-    },
-    {
-      id: 2,
-      title: 'Full-Stack Developer',
-      company: 'StartupXYZ',
-      location: 'New York, NY',
-      period: '2020 - 2022',
-      description: 'Developed and maintained multiple web applications using modern technologies. Collaborated with design and product teams to deliver high-quality solutions.',
-      technologies: ['Vue.js', 'Python', 'Django', 'MongoDB', 'Docker'],
-      achievements: [
-        'Built 3 major features that increased user engagement by 25%',
-        'Improved code quality by implementing automated testing',
-        'Reduced bug reports by 30% through better error handling'
-      ]
-    },
-    {
-      id: 3,
-      title: 'Frontend Developer',
-      company: 'Digital Agency',
-      location: 'Los Angeles, CA',
-      period: '2019 - 2020',
-      description: 'Created responsive and interactive user interfaces for various client projects. Worked closely with designers to implement pixel-perfect designs.',
-      technologies: ['JavaScript', 'React', 'CSS3', 'HTML5', 'Webpack'],
-      achievements: [
-        'Delivered 15+ client projects on time and within budget',
-        'Improved website performance scores by 20%',
-        'Received 100% client satisfaction rating'
-      ]
-    }
-  ]
-
-  const education = [
-    {
-      id: 1,
-      degree: 'Master of Science in Computer Science',
-      school: 'Stanford University',
-      location: 'Stanford, CA',
-      period: '2017 - 2019',
-      description: 'Specialized in software engineering and artificial intelligence. Completed thesis on machine learning applications in web development.',
-      gpa: '3.8/4.0'
-    },
-    {
-      id: 2,
-      degree: 'Bachelor of Science in Computer Science',
-      school: 'University of California, Berkeley',
-      location: 'Berkeley, CA',
-      period: '2013 - 2017',
-      description: 'Focused on software development and computer systems. Graduated with honors and completed multiple internships.',
-      gpa: '3.9/4.0'
-    }
-  ]
+  const workExperience = experienceSection.workExperience
+  const education = experienceSection.education
 
   return (
     <section id="experience" className="py-20 bg-background">
@@ -84,7 +22,7 @@ const Experience = () => {
             Work <span className="gradient-text">Experience</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            My professional journey and educational background
+            {experienceSection.subheading}
           </p>
         </motion.div>
 
@@ -129,15 +67,15 @@ const Experience = () => {
                         </h4>
                         <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mt-1">
                           <div className="flex items-center gap-1">
-                            <Briefcase size={16} />
+                            {/* icon */}
                             {job.company}
                           </div>
                           <div className="flex items-center gap-1">
-                            <MapPin size={16} />
+                            {/* icon */}
                             {job.location}
                           </div>
                           <div className="flex items-center gap-1">
-                            <Calendar size={16} />
+                            {/* icon */}
                             {job.period}
                           </div>
                         </div>
@@ -215,29 +153,26 @@ const Experience = () => {
                         </h4>
                         <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mt-1">
                           <div className="flex items-center gap-1">
-                            <GraduationCap size={16} />
+                            {/* icon */}
                             {edu.school}
                           </div>
                           <div className="flex items-center gap-1">
-                            <MapPin size={16} />
+                            {/* icon */}
                             {edu.location}
                           </div>
                           <div className="flex items-center gap-1">
-                            <Calendar size={16} />
+                            {/* icon */}
                             {edu.period}
                           </div>
                         </div>
                       </div>
 
-                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed mt-2">
                         {edu.description}
                       </p>
 
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-dark-900 dark:text-white">GPA:</span>
-                        <span className="text-sm text-primary font-semibold">
-                          {edu.gpa}
-                        </span>
+                      <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        GPA: {edu.gpa}
                       </div>
                     </div>
                   </div>

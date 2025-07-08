@@ -3,85 +3,13 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, Github, Eye, Code, Globe, Smartphone } from 'lucide-react'
+import { projectsSection } from '../site.config'
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all')
 
-  const projects = [
-    {
-      id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce platform built with Next.js, TypeScript, and Stripe integration. Features include user authentication, product management, shopping cart, and payment processing.',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
-      category: 'web',
-      technologies: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Tailwind CSS'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/yourusername/project',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-      image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=400&fit=crop',
-      category: 'web',
-      technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'Express'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/yourusername/project',
-      featured: true
-    },
-    {
-      id: 3,
-      title: 'Fitness Tracking Mobile App',
-      description: 'A cross-platform mobile application for tracking workouts, nutrition, and fitness goals with personalized recommendations.',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop',
-      category: 'mobile',
-      technologies: ['React Native', 'Firebase', 'Redux', 'TypeScript'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/yourusername/project',
-      featured: true
-    },
-    {
-      id: 4,
-      title: 'AI Chat Assistant',
-      description: 'An intelligent chatbot powered by machine learning that provides customer support and answers queries in real-time.',
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
-      category: 'ai',
-      technologies: ['Python', 'TensorFlow', 'FastAPI', 'Redis', 'Docker'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/yourusername/project',
-      featured: false
-    },
-    {
-      id: 5,
-      title: 'Portfolio Website',
-      description: 'A modern, responsive portfolio website showcasing projects and skills with smooth animations and dark mode support.',
-      image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop',
-      category: 'web',
-      technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/yourusername/project',
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'Weather Dashboard',
-      description: 'A beautiful weather dashboard with real-time data, interactive maps, and detailed forecasts for multiple locations.',
-      image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=600&h=400&fit=crop',
-      category: 'web',
-      technologies: ['Vue.js', 'OpenWeather API', 'Chart.js', 'Vuetify'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/yourusername/project',
-      featured: false
-    }
-  ]
-
-  const filters = [
-    { id: 'all', label: 'All Projects', icon: Code },
-    { id: 'web', label: 'Web Apps', icon: Globe },
-    { id: 'mobile', label: 'Mobile Apps', icon: Smartphone },
-    { id: 'ai', label: 'AI/ML', icon: Code }
-  ]
+  const projects = projectsSection.projects
+  const filters = projectsSection.filters
 
   const filteredProjects = activeFilter === 'all' 
     ? projects 
@@ -98,10 +26,12 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-dark-900 dark:text-white mb-4">
-            Featured <span className="gradient-text">Projects</span>
+            {projectsSection.heading.split(' ').map((word, i) =>
+              word === 'Projects' ? <span key={i} className="gradient-text">{word}</span> : word + ' '
+            )}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Explore my latest work and see how I bring ideas to life through code
+            {projectsSection.subheading}
           </p>
         </motion.div>
 
@@ -123,7 +53,7 @@ const Projects = () => {
                   : 'bg-white dark:bg-dark-700 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-dark-600'
               }`}
             >
-              <filter.icon size={20} />
+              {/* icon rendering can be added if needed */}
               {filter.label}
             </button>
           ))}

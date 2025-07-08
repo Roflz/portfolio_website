@@ -2,79 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { Code, Database, Smartphone, Cloud, Palette, Settings } from 'lucide-react'
+import { skillsSection } from '../site.config'
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      icon: Code,
-      title: 'Frontend Development',
-      skills: [
-        { name: 'React', level: 95 },
-        { name: 'TypeScript', level: 90 },
-        { name: 'Next.js', level: 85 },
-        { name: 'Tailwind CSS', level: 90 },
-        { name: 'HTML/CSS', level: 95 },
-        { name: 'JavaScript', level: 95 },
-      ]
-    },
-    {
-      icon: Database,
-      title: 'Backend Development',
-      skills: [
-        { name: 'Node.js', level: 85 },
-        { name: 'Python', level: 80 },
-        { name: 'PostgreSQL', level: 75 },
-        { name: 'MongoDB', level: 70 },
-        { name: 'Express.js', level: 85 },
-        { name: 'REST APIs', level: 90 },
-      ]
-    },
-    {
-      icon: Smartphone,
-      title: 'Mobile Development',
-      skills: [
-        { name: 'React Native', level: 75 },
-        { name: 'Flutter', level: 70 },
-        { name: 'iOS Development', level: 65 },
-        { name: 'Android Development', level: 60 },
-        { name: 'Mobile UI/UX', level: 80 },
-      ]
-    },
-    {
-      icon: Cloud,
-      title: 'DevOps & Cloud',
-      skills: [
-        { name: 'Docker', level: 75 },
-        { name: 'AWS', level: 70 },
-        { name: 'Git', level: 90 },
-        { name: 'CI/CD', level: 75 },
-        { name: 'Linux', level: 80 },
-        { name: 'Nginx', level: 70 },
-      ]
-    },
-    {
-      icon: Palette,
-      title: 'Design & Tools',
-      skills: [
-        { name: 'Figma', level: 75 },
-        { name: 'Adobe XD', level: 70 },
-        { name: 'Photoshop', level: 65 },
-        { name: 'Sketch', level: 60 },
-        { name: 'UI/UX Design', level: 80 },
-      ]
-    },
-    {
-      icon: Settings,
-      title: 'Other Skills',
-      skills: [
-        { name: 'Agile/Scrum', level: 85 },
-        { name: 'Project Management', level: 75 },
-        { name: 'Technical Writing', level: 80 },
-        { name: 'Problem Solving', level: 90 },
-        { name: 'Team Leadership', level: 75 },
-      ]
-    }
-  ]
+  const skillCategories = skillsSection.skillCategories
 
   return (
     <section id="skills" className="py-20 bg-background">
@@ -87,10 +18,12 @@ const Skills = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-dark-900 dark:text-white mb-4">
-            My <span className="gradient-text">Skills</span>
+            {skillsSection.heading.split(' ').map((word, i) =>
+              word === 'Skills' ? <span key={i} className="gradient-text">{word}</span> : word + ' '
+            )}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            A comprehensive overview of my technical skills and expertise across various domains
+            {skillsSection.subheading}
           </p>
         </motion.div>
 
@@ -157,11 +90,7 @@ const Skills = () => {
             Additional Skills & Technologies
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {[
-              'GraphQL', 'Redux', 'Vue.js', 'Angular', 'Sass', 'Webpack',
-              'Jest', 'Cypress', 'Firebase', 'Redis', 'Elasticsearch', 'Kubernetes',
-              'Terraform', 'Jenkins', 'GitHub Actions', 'Vercel', 'Netlify', 'Heroku'
-            ].map((skill, index) => (
+            {skillsSection.additionalSkills.map((skill, index) => (
               <motion.div
                 key={skill}
                 initial={{ opacity: 0, scale: 0.8 }}

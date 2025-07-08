@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ChevronDown, Download, Mail } from 'lucide-react'
+import { heroSection } from '../site.config'
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -30,7 +31,7 @@ const Hero = () => {
             transition={{ delay: 0.2 }}
             className="text-lg text-primary font-medium"
           >
-            Hello, I'm
+            {heroSection.greeting}
           </motion.p>
 
           {/* Name */}
@@ -40,7 +41,7 @@ const Hero = () => {
             transition={{ delay: 0.4 }}
             className="text-5xl md:text-7xl font-bold text-dark-900 dark:text-white"
           >
-            <span className="gradient-text">Your Name</span>
+            <span className="gradient-text">{heroSection.name}</span>
           </motion.h1>
 
           {/* Title */}
@@ -50,7 +51,7 @@ const Hero = () => {
             transition={{ delay: 0.6 }}
             className="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 font-medium"
           >
-            Software Developer & Full-Stack Engineer
+            {heroSection.title}
           </motion.h2>
 
           {/* Description */}
@@ -60,8 +61,7 @@ const Hero = () => {
             transition={{ delay: 0.8 }}
             className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
           >
-            I build exceptional digital experiences that combine beautiful design with powerful functionality. 
-            Passionate about creating innovative solutions that make a difference.
+            {heroSection.description}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -71,23 +71,23 @@ const Hero = () => {
             transition={{ delay: 1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <button
-              onClick={() => scrollToSection('projects')}
-              className="btn-primary flex items-center gap-2 px-8 py-3 text-lg"
-            >
-              View My Work
-            </button>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="btn-secondary flex items-center gap-2 px-8 py-3 text-lg"
-            >
-              <Mail size={20} />
-              Get In Touch
-            </button>
-            <button className="btn-secondary flex items-center gap-2 px-8 py-3 text-lg">
-              <Download size={20} />
-              Download CV
-            </button>
+            {heroSection.ctas.map((cta, idx) => (
+              <button
+                key={cta.label}
+                onClick={() => {
+                  if (cta.action === 'scroll') {
+                    const el = document.getElementById(cta.target)
+                    if (el) el.scrollIntoView({ behavior: 'smooth' })
+                  } else if (cta.action === 'download') {
+                    window.open(cta.target, '_blank')
+                  }
+                }}
+                className={`btn-${cta.style} flex items-center gap-2 px-8 py-3 text-lg`}
+              >
+                {cta.icon ? <cta.icon size={20} /> : null}
+                {cta.label}
+              </button>
+            ))}
           </motion.div>
 
           {/* Stats */}
@@ -97,18 +97,12 @@ const Hero = () => {
             transition={{ delay: 1.2 }}
             className="flex justify-center items-center gap-8 pt-8"
           >
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary">50+</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Projects Completed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary">5+</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-primary">100%</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Client Satisfaction</div>
-            </div>
+            {heroSection.stats.map((stat) => (
+              <div className="text-center" key={stat.label}>
+                <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</div>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
@@ -121,7 +115,10 @@ const Hero = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <motion.button
-          onClick={() => scrollToSection('about')}
+          onClick={() => {
+            const el = document.getElementById(heroSection.scrollIndicator.target)
+            if (el) el.scrollIntoView({ behavior: 'smooth' })
+          }}
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="p-2 rounded-full bg-white/20 dark:bg-dark-800/20 backdrop-blur-sm border border-gray-200 dark:border-dark-700"

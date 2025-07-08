@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
+import { contactSection } from '../site.config'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,26 +15,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email',
-      value: 'your.email@example.com',
-      link: 'mailto:your.email@example.com'
-    },
-    {
-      icon: Phone,
-      title: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567'
-    },
-    {
-      icon: MapPin,
-      title: 'Location',
-      value: 'San Francisco, CA',
-      link: '#'
-    }
-  ]
+  const contactInfo = contactSection.contactInfo
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -71,10 +53,12 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-dark-900 dark:text-white mb-4">
-            Get In <span className="gradient-text">Touch</span>
+            {contactSection.heading.split(' ').map((word, i) =>
+              word === 'Touch' ? <span key={i} className="gradient-text">{word}</span> : word + ' '
+            )}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Let's discuss your next project or just say hello. I'm always open to new opportunities and collaborations.
+            {contactSection.subheading}
           </p>
         </motion.div>
 
@@ -89,11 +73,10 @@ const Contact = () => {
           >
             <div>
               <h3 className="text-2xl font-semibold text-dark-900 dark:text-white mb-6">
-                Let's Connect
+                {contactSection.connectHeading}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
-                I'm always interested in hearing about new opportunities, interesting projects, 
-                or just want to chat about technology. Feel free to reach out!
+                {contactSection.connectText}
               </p>
             </div>
 
@@ -107,12 +90,10 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="card hover:shadow-lg transition-all duration-300 group"
+                  className="hover:shadow-lg transition-all duration-300 group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="p-3 bg-primary-100 dark:bg-primary-900/20 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-900/40 transition-colors duration-200">
-                      <info.icon size={24} className="text-primary" />
-                    </div>
+                    <info.icon size={24} className="text-primary mr-2" />
                     <div>
                       <h4 className="font-semibold text-dark-900 dark:text-white">
                         {info.title}
@@ -138,12 +119,7 @@ const Contact = () => {
                 Follow Me
               </h4>
               <div className="flex gap-4">
-                {[
-                  { name: 'GitHub', url: 'https://github.com/yourusername', color: 'hover:bg-gray-900' },
-                  { name: 'LinkedIn', url: 'https://linkedin.com/in/yourusername', color: 'hover:bg-blue-600' },
-                  { name: 'Twitter', url: 'https://twitter.com/yourusername', color: 'hover:bg-blue-400' },
-                  { name: 'Dribbble', url: 'https://dribbble.com/yourusername', color: 'hover:bg-pink-500' }
-                ].map((social) => (
+                {contactSection.socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}
@@ -167,7 +143,7 @@ const Contact = () => {
           >
             <div className="card">
               <h3 className="text-2xl font-semibold text-dark-900 dark:text-white mb-6">
-                Send Message
+                {contactSection.sendMessageHeading}
               </h3>
 
               {isSubmitted ? (
@@ -178,10 +154,10 @@ const Contact = () => {
                 >
                   <CheckCircle size={64} className="text-green-500 mx-auto mb-4" />
                   <h4 className="text-xl font-semibold text-dark-900 dark:text-white mb-2">
-                    Message Sent!
+                    {contactSection.sentMessage.heading}
                   </h4>
                   <p className="text-gray-600 dark:text-gray-400">
-                    Thank you for reaching out. I'll get back to you soon!
+                    {contactSection.sentMessage.text}
                   </p>
                 </motion.div>
               ) : (
@@ -189,7 +165,7 @@ const Contact = () => {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-dark-900 dark:text-white mb-2">
-                        Name
+                        {contactSection.formFields[0].label}
                       </label>
                       <input
                         type="text"
@@ -199,12 +175,11 @@ const Contact = () => {
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-700 text-dark-900 dark:text-white"
-                        placeholder="Your name"
                       />
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-dark-900 dark:text-white mb-2">
-                        Email
+                        {contactSection.formFields[1].label}
                       </label>
                       <input
                         type="email"
@@ -214,14 +189,12 @@ const Contact = () => {
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-700 text-dark-900 dark:text-white"
-                        placeholder="your.email@example.com"
                       />
                     </div>
                   </div>
-
                   <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-dark-900 dark:text-white mb-2">
-                      Subject
+                      {contactSection.formFields[2].label}
                     </label>
                     <input
                       type="text"
@@ -231,13 +204,11 @@ const Contact = () => {
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-700 text-dark-900 dark:text-white"
-                      placeholder="What's this about?"
                     />
                   </div>
-
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-dark-900 dark:text-white mb-2">
-                      Message
+                      {contactSection.formFields[3].label}
                     </label>
                     <textarea
                       id="message"
@@ -247,10 +218,8 @@ const Contact = () => {
                       required
                       rows={6}
                       className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-700 text-dark-900 dark:text-white resize-none"
-                      placeholder="Tell me about your project or just say hello..."
                     />
                   </div>
-
                   <button
                     type="submit"
                     disabled={isSubmitting}

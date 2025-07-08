@@ -2,16 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { User, MapPin, Calendar, Mail, Phone, Globe } from 'lucide-react'
+import { aboutSection } from '../site.config'
 
 const About = () => {
-  const personalInfo = [
-    { icon: User, label: 'Name', value: 'Your Full Name' },
-    { icon: MapPin, label: 'Location', value: 'City, Country' },
-    { icon: Calendar, label: 'Birthday', value: 'January 1, 1990' },
-    { icon: Mail, label: 'Email', value: 'your.email@example.com' },
-    { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
-    { icon: Globe, label: 'Website', value: 'www.yourwebsite.com' },
-  ]
+  const personalInfo = aboutSection.personalInfo
 
   return (
     <section id="about" className="py-20 bg-background-alt">
@@ -24,10 +18,12 @@ const About = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-dark-900 dark:text-white mb-4">
-            About <span className="gradient-text">Me</span>
+            {aboutSection.heading.split(' ').map((word, i) =>
+              word === 'Me' ? <span key={i} className="gradient-text">{word}</span> : word + ' '
+            )}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Get to know me better and understand my journey in software development
+            {aboutSection.subheading}
           </p>
         </motion.div>
 
@@ -88,63 +84,37 @@ const About = () => {
           >
             <div className="card">
               <h3 className="text-2xl font-semibold text-dark-900 dark:text-white mb-4">
-                Who I Am
+                {aboutSection.whoIAm.heading}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                I'm a passionate software developer with over 5 years of experience creating 
-                innovative digital solutions. I specialize in full-stack development, focusing 
-                on building scalable web applications and intuitive user experiences.
-              </p>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                My journey in technology began with a curiosity about how things work, which 
-                evolved into a deep passion for creating software that solves real-world problems. 
-                I believe in writing clean, maintainable code and staying up-to-date with the 
-                latest industry trends and best practices.
-              </p>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                When I'm not coding, you can find me exploring new technologies, contributing 
-                to open-source projects, or sharing knowledge with the developer community.
-              </p>
+              {aboutSection.whoIAm.paragraphs.map((p, i) => (
+                <p key={i} className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                  {p}
+                </p>
+              ))}
             </div>
 
             {/* Skills Preview */}
             <div className="card">
               <h3 className="text-xl font-semibold text-dark-900 dark:text-white mb-4">
-                What I Do
+                {aboutSection.whatIDo.heading}
               </h3>
               <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <h4 className="font-medium text-dark-900 dark:text-white">Frontend Development</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    React, TypeScript, Next.js, Tailwind CSS
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-medium text-dark-900 dark:text-white">Backend Development</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Node.js, Python, PostgreSQL, MongoDB
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-medium text-dark-900 dark:text-white">Mobile Development</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    React Native, Flutter, iOS, Android
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-medium text-dark-900 dark:text-white">DevOps & Tools</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Docker, AWS, Git, CI/CD
-                  </p>
-                </div>
+                {aboutSection.whatIDo.skills.map((skill, i) => (
+                  <div className="space-y-2" key={skill.title}>
+                    <h4 className="font-medium text-dark-900 dark:text-white">{skill.title}</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {skill.description}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Download CV Button */}
             <div className="flex justify-center lg:justify-start">
               <button className="btn-primary flex items-center gap-2">
-                <User size={20} />
-                Download CV
+                <aboutSection.downloadCV.icon size={20} />
+                {aboutSection.downloadCV.label}
               </button>
             </div>
           </motion.div>
