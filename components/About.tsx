@@ -8,7 +8,7 @@ const About = () => {
   const personalInfo = aboutSection.personalInfo
 
   return (
-    <section id="about" className="py-20 bg-background-alt">
+    <section id="about" className="py-20 bg-background-alt mt-[60px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,11 +63,41 @@ const About = () => {
                     viewport={{ once: true }}
                     className="flex items-center gap-3"
                   >
-                    <info.icon size={20} className="text-primary" />
-                    <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{info.label}</p>
-                      <p className="font-medium text-dark-900 dark:text-white">{info.value}</p>
-                    </div>
+                    {info.label === 'Email' ? (
+                      <>
+                        <info.icon size={20} className="text-primary" />
+                        <div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{info.label}</p>
+                          <a
+                            href={info.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:text-primary transition-colors font-medium text-dark-900 dark:text-white"
+                          >
+                            {info.value}
+                          </a>
+                        </div>
+                      </>
+                    ) : info.link ? (
+                      <a
+                        href={info.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 underline hover:text-primary transition-colors"
+                        style={{ fontWeight: 500 }}
+                      >
+                        <info.icon size={20} className="text-primary" />
+                        {info.label}
+                      </a>
+                    ) : (
+                      <>
+                        <info.icon size={20} className="text-primary" />
+                        <div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{info.label}</p>
+                          <span className="font-medium text-dark-900 dark:text-white">{info.value}</span>
+                        </div>
+                      </>
+                    )}
                   </motion.div>
                 ))}
               </div>
@@ -112,10 +142,14 @@ const About = () => {
 
             {/* Download CV Button */}
             <div className="flex justify-center lg:justify-start">
-              <button className="btn-primary flex items-center gap-2">
+              <a
+                href="/cv.pdf"
+                download
+                className="btn-primary flex items-center gap-2"
+              >
                 <aboutSection.downloadCV.icon size={20} />
                 {aboutSection.downloadCV.label}
-              </button>
+              </a>
             </div>
           </motion.div>
         </div>

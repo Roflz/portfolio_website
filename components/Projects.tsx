@@ -60,7 +60,7 @@ const Projects = () => {
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex flex-wrap justify-center gap-8">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -68,7 +68,7 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="card group hover:shadow-xl transition-all duration-300"
+              className="card w-[440px] px-6 group hover:shadow-xl transition-all duration-300"
             >
               {/* Project Image */}
               <div className="relative overflow-hidden rounded-lg mb-6">
@@ -129,7 +129,7 @@ const Projects = () => {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary flex items-center gap-2 text-sm"
+                    className="btn-primary flex items-center gap-2 text-sm whitespace-nowrap"
                   >
                     <Eye size={16} />
                     Live Demo
@@ -138,11 +138,22 @@ const Projects = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-secondary flex items-center gap-2 text-sm"
+                    className="btn-secondary flex items-center gap-2 text-sm whitespace-nowrap"
                   >
                     <Github size={16} />
                     Code
                   </a>
+                  {project.fiverrUrl && (
+                    <a
+                      href={project.fiverrUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-secondary flex items-center gap-2 text-sm whitespace-nowrap"
+                    >
+                      <ExternalLink size={16} />
+                      Fiverr
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -157,10 +168,15 @@ const Projects = () => {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <button className="btn-primary flex items-center gap-2 mx-auto">
+          <a
+            href="https://github.com/roflz?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex items-center gap-2 mx-auto w-max"
+          >
             <Github size={20} />
             View More on GitHub
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

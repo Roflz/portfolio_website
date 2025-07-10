@@ -1,8 +1,69 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ChevronDown, Download, Mail } from 'lucide-react'
+import { ChevronDown, Download, Mail, TrendingUp } from 'lucide-react'
 import { heroSection } from '../site.config'
+import { useState, useRef, useEffect } from 'react'
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts'
+
+const projectProgressData = [
+  { month: 'Jan', count: 0 },
+  { month: 'Feb', count: 0 },
+  { month: 'Mar', count: 1 },
+  { month: 'Apr', count: 2 },
+  { month: 'May', count: 2 },
+  { month: 'Jun', count: 3 },
+]
+
+function MiniProjectGraph({ expanded }: { expanded: boolean }) {
+  // Mini SVG graph: use Lucide TrendingUp icon for a clean, impactful look
+  const miniGraph = (
+    <motion.div
+      initial={false}
+      animate={expanded ? { scale: 1.18, filter: 'drop-shadow(0 0 16px #22c55eaa)' } : { scale: 1, filter: 'drop-shadow(0 2px 8px #22c55e55)' }}
+      transition={{ type: 'spring', stiffness: 350, damping: 18 }}
+      className="relative w-[48px] h-[48px] aspect-square flex items-center justify-center cursor-pointer group border-2 border-primary-400 dark:border-primary-500 rounded-xl ring-2 ring-primary-200/40 dark:ring-primary-400/30 shadow-lg hover:ring-4 hover:ring-primary-300/60 hover:shadow-primary-400/30 transition-all duration-200 mt-[5px]"
+    >
+      <TrendingUp size={32} strokeWidth={3} color="#22c55e" />
+    </motion.div>
+  )
+
+  return (
+    <div className="relative flex flex-col items-center w-full">
+      <div
+        className="w-[32px] h-[32px] flex items-center justify-center cursor-pointer"
+        style={{ zIndex: 1 }}
+      >
+        {miniGraph}
+      </div>
+      {/* Expanded graph, absolutely positioned below */}
+      <div
+        className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 bg-background-alt rounded-xl shadow-xl border border-primary/10 transition-all duration-300 overflow-hidden ${expanded ? 'h-32 w-56 opacity-100 pointer-events-auto' : 'h-0 w-56 opacity-0 pointer-events-none'}`}
+        style={{ zIndex: 10 }}
+      >
+        {expanded && (
+          <ResponsiveContainer width="100%" height={120}>
+            <LineChart data={projectProgressData} margin={{ top: 16, right: 16, left: 16, bottom: 16 }}>
+              <XAxis dataKey="month" tick={{ fontSize: 10 }} />
+              <YAxis domain={[0, 'dataMax+1']} tick={{ fontSize: 10 }} />
+              <Tooltip wrapperClassName="!text-xs" contentStyle={{ fontSize: 12 }} cursor={false} />
+              <Line
+                type="monotone"
+                dataKey="count"
+                stroke="#38bdf8"
+                strokeWidth={2}
+                dot={true}
+                isAnimationActive={true}
+                animationDuration={800}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        )}
+        <span className="block text-[10px] text-gray-400 text-center mt-1">Projects Over Time</span>
+      </div>
+    </div>
+  )
+}
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -10,6 +71,37 @@ const Hero = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  // Ref and state for dynamic mini graph positioning
+  const statsRowRef = useRef<HTMLDivElement>(null)
+  const projectsStatRef = useRef<HTMLDivElement>(null)
+  const [miniGraphLeft, setMiniGraphLeft] = useState<number | null>(null)
+  const [expanded, setExpanded] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Calculate the left offset of the projects stat
+  useEffect(() => {
+    function updatePosition() {
+      if (statsRowRef.current && projectsStatRef.current) {
+        const statsRect = statsRowRef.current.getBoundingClientRect()
+        const projRect = projectsStatRef.current.getBoundingClientRect()
+        setMiniGraphLeft(projRect.left + projRect.width / 2 - statsRect.left)
+      }
+    }
+    updatePosition()
+    window.addEventListener('resize', updatePosition)
+    return () => window.removeEventListener('resize', updatePosition)
+  }, [])
+
+  // Hover logic for mini graph and expanded chart
+  const handleMiniGraphEnter = () => {
+    setExpanded(true)
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+  }
+  const handleMiniGraphLeave = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    timeoutRef.current = setTimeout(() => setExpanded(false), 250)
   }
 
   return (
@@ -72,7 +164,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             {heroSection.ctas.map((cta, idx) => (
-              <button
+            <button
                 key={cta.label}
                 onClick={() => {
                   if (cta.action === 'scroll') {
@@ -83,10 +175,10 @@ const Hero = () => {
                   }
                 }}
                 className={`btn-${cta.style} flex items-center gap-2 px-8 py-3 text-lg`}
-              >
+            >
                 {cta.icon ? <cta.icon size={20} /> : null}
                 {cta.label}
-              </button>
+            </button>
             ))}
           </motion.div>
 
@@ -95,37 +187,49 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 }}
-            className="flex justify-center items-center gap-8 pt-8"
+            className="flex justify-center items-center gap-8 pt-8 relative"
+            ref={statsRowRef}
           >
-            {heroSection.stats.map((stat) => (
-              <div className="text-center" key={stat.label}>
-                <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</div>
-              </div>
-            ))}
+            {heroSection.stats.map((stat) => {
+              const isProjects = stat.label === 'Projects Completed';
+              return (
+                <div
+                  className="text-center relative flex flex-col items-center justify-between min-h-[80px]"
+                  key={stat.label}
+                  ref={isProjects ? projectsStatRef : undefined}
+                  onMouseEnter={isProjects ? handleMiniGraphEnter : undefined}
+                  onMouseLeave={isProjects ? handleMiniGraphLeave : undefined}
+                  style={{ zIndex: isProjects && expanded ? 20 : undefined }}
+                >
+                  <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {stat.label}
+            </div>
+                  {/* Mini graph is not rendered here, but hover area is preserved */}
+            </div>
+              );
+            })}
+            {/* Absolutely position the mini graph below the correct stat */}
+            {miniGraphLeft !== null && (
+              <div
+                className="absolute mt-2"
+                style={{
+                  pointerEvents: 'auto',
+                  top: '100%',
+                  left: miniGraphLeft,
+                  transform: 'translateX(-50%)',
+                  width: '32px',
+                  zIndex: expanded ? 30 : 10,
+                }}
+                onMouseEnter={handleMiniGraphEnter}
+                onMouseLeave={handleMiniGraphLeave}
+              >
+                <MiniProjectGraph expanded={expanded} />
+            </div>
+            )}
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-      >
-        <motion.button
-          onClick={() => {
-            const el = document.getElementById(heroSection.scrollIndicator.target)
-            if (el) el.scrollIntoView({ behavior: 'smooth' })
-          }}
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="p-2 rounded-full bg-white/20 dark:bg-dark-800/20 backdrop-blur-sm border border-gray-200 dark:border-dark-700"
-        >
-          <ChevronDown size={24} className="text-gray-600 dark:text-gray-300" />
-        </motion.button>
-      </motion.div>
     </section>
   )
 }
